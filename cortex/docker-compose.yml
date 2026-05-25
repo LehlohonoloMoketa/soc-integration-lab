@@ -1,0 +1,48 @@
+# docker-compose-cortex.yml (without application.conf)
+services:
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.17.9
+    container_name: elasticsearch-cortex
+    restart: unless-stopped
+    mem_limit: 1G
+    ports:
+      - "192.168.163.140:9201:9200"
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - cluster.name=cortex
+      - http.host=0.0.0.0
+      - ES_JAVA_OPTS=-Xms512m -Xmx512m
+    volumes:
+      - elasticsearchcortexdata:/usr/share/elasticsearch/data
+    networks:
+      - cortex_net
+
+  cortex:
+    image: thehiveproject/cortex:3.1.7
+    container_name: cortex
+    restart: unless-stopped
+    depends_on:
+      - elasticsearch
+    ports:
+      - "192.168.163.140:9001:9001"
+    environment:
+      - job_directory=/tmp/cortex-jobs
+      # No need for application.conf - using command parameters instead
+    command:
+      - --es-hostname
+      - elasticsearch-cortex
+      - --secret
+      - "your-secret-key-here-change-this"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /tmp/cortex-jobs:/tmp/cortex-jobs
+    networks:
+      - cortex_net
+
+volumes:
+  elasticsearchcortexdata:
+
+networks:
+  cortex_net:
+    driver: bridge

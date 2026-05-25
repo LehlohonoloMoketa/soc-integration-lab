@@ -1,0 +1,68 @@
+# docker-compose-misp.yml
+services:
+  misp_mysql:
+    image: mysql:8.0
+    container_name: misp_mysql
+    restart: unless-stopped
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      - MYSQL_DATABASE=mispdb
+      - MYSQL_USER=mispuser
+      - MYSQL_PASSWORD=misppass
+      - MYSQL_ROOT_PASSWORD=misproot
+    volumes:
+      - mispsqldata:/var/lib/mysql
+    networks:
+      - misp_net
+
+  redis:
+    image: redis:7.2-alpine
+    container_name: redis
+    restart: unless-stopped
+    networks:
+      - misp_net
+
+  misp:
+    image: coolacid/misp-docker:core-latest
+    container_name: misp
+    restart: unless-stopped
+    depends_on:
+      - redis
+      - misp_mysql
+    ports:
+      - "192.168.163.140:9003:80"
+      - "192.168.163.140:9443:443"
+    environment:
+      - MYSQL_HOST=misp_mysql
+      - MYSQL_DATABASE=mispdb
+      - MYSQL_USER=mispuser
+      - MYSQL_PASSWORD=misppass
+      - MISP_ADMIN_EMAIL=admin@misp.local
+      - MISP_ADMIN_PASSPHRASE=admin
+      - MISP_BASEURL=http://192.168.163.140:9003
+      - TIMEZONE=UTC
+      - INIT=false
+      - CRON_USER_ID=1
+      - REDIS_FQDN=redis
+      - HOSTNAME=http://192.168.163.140:9003
+    networks:
+      - misp_net
+
+  misp-modules:
+    image: coolacid/misp-docker:modules-latest
+    container_name: misp-modules
+    restart: unless-stopped
+    environment:
+      - REDIS_BACKEND=redis
+    depends_on:
+      - redis
+      - misp_mysql
+    networks:
+      - misp_net
+
+volumes:
+  mispsqldata:
+
+networks:
+  misp_net:
+    driver: bridge

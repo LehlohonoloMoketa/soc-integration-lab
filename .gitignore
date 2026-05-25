@@ -1,0 +1,75 @@
+# Docker volumes and runtime data
+**/volumes/
+**/data/
+
+# Sensitive configuration files
+**/application.conf
+**/*.key
+**/*.pem
+**/*.crt
+**/secrets/
+**/.env
+
+# API keys and credentials
+**/api_key.txt
+**/passwords.txt
+**/auth/
+
+# Logs
+**/*.log
+**/logs/
+
+# Cortex specific
+cortex/cortex/application.conf
+cortex/files/
+cortex/logs/
+cortex/server-configs/
+cortex/ssl/
+**/cortex-jobs/
+
+# MISP specific
+misp/server-configs/
+misp/files/
+misp/logs/
+misp/ssl/
+
+# TheHive specific
+**/thehivedata/
+
+# Database data directories
+**/cassandradata/
+**/elasticsearchdata/
+**/miniodata/
+**/mispsqldata/
+**/mysql-data/
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+*~
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*.swn
+.project
+.settings/
+
+# Temporary files
+**/.tmp/
+**/temp/
+**/cache/
+**/__pycache__/
+**/*.pyc
+
+# Backup files
+**/*.bak
+**/*.backup
+**/*.old
