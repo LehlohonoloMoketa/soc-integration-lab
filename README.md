@@ -348,7 +348,7 @@ This project is licensed under the MIT License - see LICENSE file for details.
 
 ## 👤 Author
 
-**Luka Moketa**
+**Lehlohonolo Moketa**
 - GitHub: [@ls111-cybersec](https://github.com/ls111-cybersec)
 - Project: [SOC Integration Lab](https://github.com/ls111-cybersec/soc-integration-lab)
 
