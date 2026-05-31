@@ -347,13 +347,12 @@ Contributions welcome! Areas for enhancement:
 This project is licensed under the MIT License - see LICENSE file for details.
 
 ## 👤 Author
-
-**Lehlohonolo Moketa**
-- GitHub: [@ls111-cybersec](https://github.com/ls111-cybersec)
-- Project: [SOC Integration Lab](https://github.com/ls111-cybersec/soc-integration-lab)
+**Lehlohonolo Moketa** 
 
 ## 🙏 Acknowledgments
 
+-GitHub:[@ls111-cybersec](https://github.com/ls111-cybersec)
+- Project: [SOC Integration Lab](https://github.com/ls111-cybersec/soc-integration-lab)
 - **Wazuh Team** - Excellent open-source SIEM/XDR platform
 - **StrangeBee** - TheHive incident response platform
 - **TheHive Project** - Cortex analysis engine
